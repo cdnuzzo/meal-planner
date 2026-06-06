@@ -16,6 +16,11 @@ def main():
 
 @app.command()
 def week(days: int = 5):
+    
+    """
+    Generate a meal and shopping list for the week.
+    """
+
     meals = generate_plan(days)
 
     typer.echo("Meal Plan")
