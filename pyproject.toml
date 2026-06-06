@@ -1,0 +1,11 @@
+[project]
+name = "meal-planner"
+version = "0.1.0"
+requires-python = ">=3.9"
+
+dependencies = [
+    "typer>=0.16.0"
+]
+
+[project.scripts]
+meal-planner = "meal_planner.main:app"
