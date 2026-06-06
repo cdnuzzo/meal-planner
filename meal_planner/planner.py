@@ -6,12 +6,18 @@ from meal_planner.meals import MEALS
 def generate_plan(days: int = 5):
     return random.sample(MEALS, k=min(days, len(MEALS)))
 
+
 def build_shopping_list(meals):
-    ingredients = set()
+    shopping_list = {}
 
     for meal in meals:
-        ingredients.update(meal["ingredients"])
+        for ingredient in meal["ingredients"]:
+            category = ingredient["category"]
+            name = ingredient["name"]
 
-    return sorted(ingredients)
+            if category not in shopping_list:
+                shopping_list[category] = set()
 
+            shopping_list[category].add(name)
 
+    return shopping_list

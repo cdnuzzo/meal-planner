@@ -1,29 +1,34 @@
+PRODUCE = "Produce"
+MEATS = "Meats"
+FROZEN = "Frozen"
+OTHER = "Other"
+
 MEALS = [
     {
         "name": "Taco Salad",
         "ingredients": [
-            "ground beef",
-            "SouthWest salad",
-            "mexican cheeze",
-            "Doritos",
-            "shredded iceberg lettuce"
+            {"name": "ground beef", "category": MEATS},
+            {"name": "SouthWest salad", "category": PRODUCE},
+            {"name": "mexican cheese", "category": OTHER},
+            {"name": "Doritos", "category": OTHER},
+            {"name": "shredded iceberg lettuce", "category": PRODUCE},
         ]
     },
     {
-        "name": "Ceasar Salad",
+        "name": "Caesar Salad",
         "ingredients": [
-            "Ceasar Salad mix",
-            "Chicken or Steak",
-            "Croutons"
+            {"name": "Caesar Salad mix", "category": PRODUCE},
+            {"name": "Chicken or Steak", "category": MEATS},
+            {"name": "Croutons", "category": OTHER},
         ]
     },
     {
         "name": "Ribs",
         "ingredients": [
-            "ribs",
-            "carrots",
-            "fries",
-            "BBQ sauce"
+            {"name": "ribs", "category": MEATS},
+            {"name": "carrots", "category": PRODUCE},
+            {"name": "fries", "category": FROZEN},
+            {"name": "BBQ sauce", "category": OTHER},
         ]
     }
 ]
