@@ -1,0 +1,54 @@
+[
+    {
+        "name": "Taco Salad",
+        "ingredients": [
+            {"name": "ground beef", "category": "Meats"},
+            {"name": "SouthWest salad", "category": "Produce"},
+            {"name": "mexican cheese", "category": "Other"},
+            {"name": "Doritos", "category": "Other"},
+            {"name": "shredded iceberg lettuce", "category": "Produce"}
+        ]
+    },
+    {
+        "name": "Caesar Salad",
+        "ingredients": [
+            {"name": "Caesar Salad mix", "category": "Produce"},
+            {"name": "Chicken or Steak", "category": "Meats"},
+            {"name": "Croutons", "category": "Other"}
+        ]
+    },
+    {
+        "name": "Ribs",
+        "ingredients": [
+            {"name": "ribs", "category": "Meats"},
+            {"name": "carrots", "category": "Produce"},
+            {"name": "fries", "category": "Frozen"},
+            {"name": "BBQ sauce", "category": "Other"}
+        ]
+    },
+    {
+        "name": "Beef Stew",
+        "ingredients": [
+            {"name": "stew meat", "category": "Meats"},
+            {"name": "carrots", "category": "Produce"},
+            {"name": "beef broth", "category": "Other"},
+            {"name": "peppers", "category": "Produce"},
+            {"name": "potatoes", "category": "Produce"}
+        ]
+    },
+    {
+        "name": "Pesto Pasta",
+        "ingredients": [
+            {"name": "fish or chicken", "category": "Meats"},
+            {"name": "pasta", "category": "Other"},
+            {"name": "pesto", "category": "Other"},
+            {"name": "artichokes", "category": "Other"}
+        ]
+    },
+    {
+        "name": "Sample",
+        "ingredients": [
+            {"name": "sample", "category": "Other"}
+        ]
+    }
+]
