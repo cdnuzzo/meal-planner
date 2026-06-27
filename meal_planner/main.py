@@ -1,3 +1,4 @@
+import random
 import typer
 
 from meal_planner.meals import MEALS, save_meals
@@ -16,29 +17,35 @@ def main():
 
 
 @app.command()
-def week(days: int = 5):
-    """Interactively select meals for each day of the week."""
+def week(
+    days: int = 5,
+    random_select: bool = typer.Option(False, "--random", "-r", help="Randomly select meals."),
+):
+    """Select meals for each day of the week."""
     if not MEALS:
         typer.echo("No meals saved. Use 'meal-planner add' to add some.")
         raise typer.Exit(1)
 
-    typer.echo("Available meals:\n")
-    for i, meal in enumerate(MEALS, 1):
-        typer.echo(f"  {i}. {meal['name']}")
-    typer.echo("")
+    if random_select:
+        selected = random.sample(MEALS, k=min(days, len(MEALS)))
+    else:
+        typer.echo("Available meals:\n")
+        for i, meal in enumerate(MEALS, 1):
+            typer.echo(f"  {i}. {meal['name']}")
+        typer.echo("")
 
-    selected = []
-    for day in range(1, days + 1):
-        while True:
-            raw = typer.prompt(f"Day {day}")
-            try:
-                choice = int(raw)
-                if 1 <= choice <= len(MEALS):
-                    selected.append(MEALS[choice - 1])
-                    break
-            except ValueError:
-                pass
-            typer.echo(f"  Enter a number between 1 and {len(MEALS)}.")
+        selected = []
+        for day in range(1, days + 1):
+            while True:
+                raw = typer.prompt(f"Day {day}")
+                try:
+                    choice = int(raw)
+                    if 1 <= choice <= len(MEALS):
+                        selected.append(MEALS[choice - 1])
+                        break
+                except ValueError:
+                    pass
+                typer.echo(f"  Enter a number between 1 and {len(MEALS)}.")
 
     typer.echo("\nMeal Plan")
     typer.echo("=========\n")
