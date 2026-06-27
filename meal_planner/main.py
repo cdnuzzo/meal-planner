@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 import typer
 
 from meal_planner.meals import MEALS, save_meals
@@ -75,33 +73,38 @@ def list_meals():
 
 
 @app.command()
-def add(
-    name: str,
-    ingredient: Optional[List[str]] = typer.Option(
-        None, "--ingredient", "-i",
-        help="Ingredient in 'name:Category' format. Repeat for multiple. "
-             "Valid categories: Produce, Meats, Frozen, Other.",
-    ),
-):
-    """Add a new meal. Optionally add ingredients with -i 'name:Category'."""
+def add():
+    """Add a new meal interactively."""
+    name = typer.prompt("Meal name").strip()
+
+    if not name:
+        typer.echo("Meal name cannot be empty.")
+        raise typer.Exit(1)
+
     if any(m["name"].lower() == name.lower() for m in MEALS):
         typer.echo(f"A meal named '{name}' already exists.")
         raise typer.Exit(1)
 
+    typer.echo("\nAdd ingredients (leave name blank to finish):\n")
+
     ingredients = []
-    for raw in (ingredient or []):
-        parts = raw.rsplit(":", 1)
-        if len(parts) != 2 or parts[1] not in VALID_CATEGORIES:
-            typer.echo(
-                f"Invalid format: '{raw}'. Use 'name:Category'.\n"
-                f"Valid categories: {', '.join(sorted(VALID_CATEGORIES))}"
-            )
-            raise typer.Exit(1)
-        ingredients.append({"name": parts[0].strip(), "category": parts[1].strip()})
+    while True:
+        ing_name = typer.prompt("  Ingredient", default="").strip()
+        if not ing_name:
+            break
+
+        while True:
+            category = typer.prompt("  Category [Produce/Meats/Frozen/Other]").strip()
+            if category in VALID_CATEGORIES:
+                break
+            typer.echo(f"  Choose from: {', '.join(sorted(VALID_CATEGORIES))}")
+
+        ingredients.append({"name": ing_name, "category": category})
+        typer.echo("")
 
     MEALS.append({"name": name, "ingredients": ingredients})
     save_meals(MEALS)
-    typer.echo(f"Added '{name}' with {len(ingredients)} ingredient(s).")
+    typer.echo(f"\nAdded '{name}' with {len(ingredients)} ingredient(s).")
 
 
 @app.command()
