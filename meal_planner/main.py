@@ -67,7 +67,7 @@ def week(days: int = 5):
 @app.command("list")
 def list_meals():
     """List all saved meals and their ingredients."""
-    for meal in MEALS:
+    for meal in sorted(MEALS, key=lambda m: m["name"]):
         typer.echo(f"{meal['name']}")
         for ing in meal["ingredients"]:
             typer.echo(f"  - {ing['name']} ({ing['category']})")
