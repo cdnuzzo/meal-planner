@@ -3,7 +3,7 @@ from typing import List, Optional
 import typer
 
 from meal_planner.meals import MEALS, save_meals
-from meal_planner.planner import generate_plan, build_shopping_list
+from meal_planner.planner import build_shopping_list
 
 app = typer.Typer()
 
@@ -19,16 +19,35 @@ def main():
 
 @app.command()
 def week(days: int = 5):
-    """Generate a meal and shopping list for the week."""
-    meals = generate_plan(days)
+    """Interactively select meals for each day of the week."""
+    if not MEALS:
+        typer.echo("No meals saved. Use 'meal-planner add' to add some.")
+        raise typer.Exit(1)
 
-    typer.echo("Meal Plan")
+    typer.echo("Available meals:\n")
+    for i, meal in enumerate(MEALS, 1):
+        typer.echo(f"  {i}. {meal['name']}")
+    typer.echo("")
+
+    selected = []
+    for day in range(1, days + 1):
+        while True:
+            raw = typer.prompt(f"Day {day}")
+            try:
+                choice = int(raw)
+                if 1 <= choice <= len(MEALS):
+                    selected.append(MEALS[choice - 1])
+                    break
+            except ValueError:
+                pass
+            typer.echo(f"  Enter a number between 1 and {len(MEALS)}.")
+
+    typer.echo("\nMeal Plan")
     typer.echo("=========\n")
+    for day, meal in enumerate(selected, 1):
+        typer.echo(f"Day {day}: {meal['name']}")
 
-    for meal in meals:
-        typer.echo(f"- {meal['name']}")
-
-    shopping_list = build_shopping_list(meals)
+    shopping_list = build_shopping_list(selected)
 
     typer.echo("\nShopping List")
     typer.echo("=============\n")

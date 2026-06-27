@@ -109,15 +109,6 @@
         ]
     },
     {
-        "name": "Sample",
-        "ingredients": [
-            {
-                "name": "sample",
-                "category": "Other"
-            }
-        ]
-    },
-    {
         "name": "Chicken Stew",
         "ingredients": [
             {
